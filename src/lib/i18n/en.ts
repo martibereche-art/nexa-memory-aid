@@ -443,6 +443,6 @@ export const en = {
     loadFailed: "Couldn't load your data",
     retry: "Retry",
   },
-} as const;
+};
 
 export type Dictionary = typeof en;
