@@ -106,7 +106,7 @@ function AuthPage() {
           else toast.error(error.message);
           return;
         }
-        const display = (data.user.user_metadata?.['display_name'] as string | undefined) || cleanEmail.split("@")[0];
+        const display = (data.user.user_metadata?.['display_name'] as string | undefined) || cleanEmail.split("@")[0] || cleanEmail;
         toast.success(t("auth.welcomeBack", { name: display }));
         navigate({ to: "/app", replace: true });
       }
