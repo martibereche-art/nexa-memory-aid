@@ -94,7 +94,7 @@ function AuthPage() {
           return;
         }
         if (data.session) {
-          toast.success(t("auth.welcomeBack", { name: parsed.data.name ?? cleanEmail }));
+          toast.success(t("auth.welcomeBack", { name: parsed.data.name || cleanEmail }));
           navigate({ to: "/app", replace: true });
         } else {
           setSentTo(cleanEmail);
