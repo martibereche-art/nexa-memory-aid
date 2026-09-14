@@ -122,7 +122,7 @@ export function ListForm({ kind, defs, list, onClose }: { kind: Kind; defs: Cate
   const lm = useMutations(listsTable);
   const p = list as PackingList | null;
   const [title, setTitle] = useState(list?.title ?? "");
-  const [type, setType] = useState(list ? typeOf(kind, list) : defs[0].value);
+  const [type, setType] = useState(list ? typeOf(kind, list) : (defs[0]?.value ?? "custom"));
   const [date, setDate] = useState(p?.date ?? "");
   const [destination, setDestination] = useState(p?.destination ?? "");
   const [reminder, setReminder] = useState(toDateTimeLocal(p?.reminder_at));

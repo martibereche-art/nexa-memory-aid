@@ -27,11 +27,17 @@ function SettingsPage() {
   const [prefs, setPrefs] = useState(() => ({ inApp: profile?.notify_in_app ?? readNotifyPrefs().inApp, browser: profile?.notify_browser ?? readNotifyPrefs().browser }));
   const [confirmClear, setConfirmClear] = useState(false);
 
-  const setPref = async (k: "inApp" | "browser", v: boolean) => {
+  const setPref = async (k: "inApp" | "browser", v: boolean): Promise<void> => {
     if (k === "browser" && v) {
       const perm = await requestBrowserPermission();
-      if (perm === "unsupported") return toast.error(t("notifications.browserUnsupported"));
-      if (perm !== "granted") return toast.error(t("notifications.browserDenied"));
+      if (perm === "unsupported") {
+        toast.error(t("notifications.browserUnsupported"));
+        return;
+      }
+      if (perm !== "granted") {
+        toast.error(t("notifications.browserDenied"));
+        return;
+      }
       toast.success(t("notifications.browserEnabled"));
     }
     setPrefs((p) => ({ ...p, [k]: v }));

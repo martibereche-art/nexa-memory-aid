@@ -35,7 +35,7 @@ function TasksPage() {
     const order: Record<string, number> = { urgent: 0, high: 1, medium: 2, low: 3 };
     return (rows.data ?? [])
       .filter((r) => (status === "open" ? r.status === "pending" || r.status === "in_progress" : r.status === status))
-      .sort((a, b) => (a.due_date ?? "9999").localeCompare(b.due_date ?? "9999") || order[a.priority] - order[b.priority]);
+      .sort((a, b) => (a.due_date ?? "9999").localeCompare(b.due_date ?? "9999") || (order[a.priority] ?? 2) - (order[b.priority] ?? 2));
   }, [rows.data, status]);
 
   const toggle = (task: Task) => {

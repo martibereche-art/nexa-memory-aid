@@ -125,7 +125,7 @@ export const TASK_STATUSES = ["pending", "in_progress", "completed", "archived"]
 export const RECURRENCES = ["none", "daily", "weekly", "monthly"] as const;
 
 export function findCategory(list: CategoryDef[], value: string): CategoryDef {
-  return list.find((c) => c.value === value) ?? list[list.length - 1];
+  return list.find((c) => c.value === value) ?? list[list.length - 1]!;
 }
 
 export { Search as SearchIcon };

@@ -60,7 +60,7 @@ export function QuickAdd({ open, onOpenChange }: { open: boolean; onOpenChange: 
   }, [open]);
 
   useEffect(() => {
-    if (lists.length && !listId) setListId(lists[0].id);
+    if (lists.length && !listId) setListId(lists[0]!.id);
     if (!lists.length) setListId(NEW);
   }, [lists, listId]);
 

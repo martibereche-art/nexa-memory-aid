@@ -22,7 +22,7 @@ export async function migrateGuestData(store: DataStore): Promise<number> {
   }
   const packingItems = data.packing_items
     .filter((i) => listMap.has(i.list_id))
-    .map((i) => ({ ...strip(i), list_id: listMap.get(i.list_id)! }));
+    .map((i) => ({ ...strip(i), list_id: listMap.get(i.list_id)! }) as InsertRow<"packing_items">);
   moved += (await store.insertMany("packing_items", packingItems)).length;
 
   moved += (await store.insertMany("waiting_items", data.waiting_items.map(strip))).length;
@@ -35,7 +35,7 @@ export async function migrateGuestData(store: DataStore): Promise<number> {
   }
   const shoppingItems = data.shopping_items
     .filter((i) => shopMap.has(i.list_id))
-    .map((i) => ({ ...strip(i), list_id: shopMap.get(i.list_id)! }));
+    .map((i) => ({ ...strip(i), list_id: shopMap.get(i.list_id)! }) as InsertRow<"shopping_items">);
   moved += (await store.insertMany("shopping_items", shoppingItems)).length;
 
   moved += (await store.insertMany("tasks", data.tasks.map(strip))).length;

@@ -120,7 +120,7 @@ export function useI18n() {
 /** Parses YYYY-MM-DD as a local date (not UTC) and ISO timestamps normally. */
 export function parseDateValue(value: string): Date {
   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    const [y, m, d] = value.split("-").map(Number);
+    const [y = 0, m = 1, d = 1] = value.split("-").map(Number);
     return new Date(y, m - 1, d);
   }
   return new Date(value);

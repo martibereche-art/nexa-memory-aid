@@ -16,11 +16,11 @@ export function Field({
   htmlFor,
 }: {
   label: string;
-  hint?: string;
-  error?: string;
-  optional?: boolean;
+  hint?: string | undefined;
+  error?: string | undefined;
+  optional?: boolean | undefined;
   children: ReactNode;
-  htmlFor?: string;
+  htmlFor?: string | undefined;
 }) {
   const { t } = useI18n();
   return (
@@ -107,10 +107,10 @@ export function SwitchRow({
   disabled,
 }: {
   label: string;
-  hint?: string;
+  hint?: string | undefined;
   checked: boolean;
-  onCheckedChange: (v: boolean) => void;
-  disabled?: boolean;
+  onCheckedChange: (v: boolean) => void | Promise<unknown>;
+  disabled?: boolean | undefined;
 }) {
   return (
     <label className="flex items-center justify-between gap-4 rounded-xl border border-border bg-background/40 px-3.5 py-3">

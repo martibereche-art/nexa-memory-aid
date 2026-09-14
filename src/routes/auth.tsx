@@ -15,7 +15,7 @@ import { useI18n } from "@/lib/i18n";
 type Mode = "login" | "signup";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>): { mode: Mode } => ({ mode: s.mode === "signup" ? "signup" : "login" }),
+  validateSearch: (s: Record<string, unknown>): { mode: Mode } => ({ mode: s['mode'] === "signup" ? "signup" : "login" }),
   head: () => ({
     meta: [
       { title: "Sign in — NEXA" },
@@ -94,7 +94,7 @@ function AuthPage() {
           return;
         }
         if (data.session) {
-          toast.success(t("auth.welcomeBack", { name: parsed.data.name ?? "" }));
+          toast.success(t("auth.welcomeBack", { name: parsed.data.name ?? cleanEmail }));
           navigate({ to: "/app", replace: true });
         } else {
           setSentTo(cleanEmail);
@@ -106,7 +106,7 @@ function AuthPage() {
           else toast.error(error.message);
           return;
         }
-        const display = (data.user.user_metadata?.display_name as string | undefined) || cleanEmail.split("@")[0];
+        const display = (data.user.user_metadata?.['display_name'] as string | undefined) || cleanEmail.split("@")[0];
         toast.success(t("auth.welcomeBack", { name: display }));
         navigate({ to: "/app", replace: true });
       }
@@ -155,14 +155,14 @@ function AuthPage() {
       ) : (
         <form onSubmit={submit} className="surface mt-8 space-y-4 p-5 animate-fade-up" noValidate>
           {mode === "signup" ? (
-            <Field label={t("auth.name")} error={errors.name} htmlFor="name">
+            <Field label={t("auth.name")} error={errors['name']} htmlFor="name">
               <TextField id="name" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} />
             </Field>
           ) : null}
-          <Field label={t("auth.email")} error={errors.email} htmlFor="email">
+          <Field label={t("auth.email")} error={errors['email']} htmlFor="email">
             <TextField id="email" type="email" inputMode="email" dir="ltr" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </Field>
-          <Field label={t("auth.password")} error={errors.password} htmlFor="password">
+          <Field label={t("auth.password")} error={errors['password']} htmlFor="password">
             <TextField
               id="password"
               type="password"
@@ -173,7 +173,7 @@ function AuthPage() {
             />
           </Field>
           {mode === "signup" ? (
-            <Field label={t("auth.confirmPassword")} error={errors.confirm} htmlFor="confirm">
+            <Field label={t("auth.confirmPassword")} error={errors['confirm']} htmlFor="confirm">
               <TextField id="confirm" type="password" dir="ltr" autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
             </Field>
           ) : null}

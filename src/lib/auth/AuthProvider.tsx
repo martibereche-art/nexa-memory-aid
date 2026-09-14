@@ -126,7 +126,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const user = session?.user ?? null;
     const displayName =
       profile?.display_name ||
-      (user?.user_metadata?.display_name as string | undefined) ||
+      (user?.user_metadata?.['display_name'] as string | undefined) ||
       user?.email?.split("@")[0] ||
       t("common.guest");
     return { user, session, profile, isGuest: !user && isGuest, loading, displayName, continueAsGuest, signOut, updateProfile, refreshProfile };

@@ -40,7 +40,7 @@ export const localStore: DataStore = {
   },
   async insert(table, values) {
     const [row] = await localStore.insertMany(table, [values]);
-    return row;
+    return row!;
   },
   async insertMany<T extends TableName>(table: T, values: InsertRow<T>[]) {
     await delay();
@@ -55,8 +55,8 @@ export const localStore: DataStore = {
         created_at: now,
         updated_at: now,
       } as unknown as Row<T>;
-      if (table === "waiting_items" && !(row as Record<string, unknown>).start_date) {
-        (row as Record<string, unknown>).start_date = now.slice(0, 10);
+      if (table === "waiting_items" && !(row as Record<string, unknown>)['start_date']) {
+        (row as Record<string, unknown>)['start_date'] = now.slice(0, 10);
       }
       return row;
     });
