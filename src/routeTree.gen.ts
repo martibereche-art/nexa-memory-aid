@@ -13,9 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppIndexRouteImport } from './routes/app/index'
-import { Route as AppPackingRouteImport } from './routes/app/packing'
 import { Route as AppPlacesRouteImport } from './routes/app/places'
-import { Route as AppShoppingRouteImport } from './routes/app/shopping'
 import { Route as AppTasksRouteImport } from './routes/app/tasks'
 import { Route as AppWaitingRouteImport } from './routes/app/waiting'
 
@@ -39,19 +37,9 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppPackingRoute = AppPackingRouteImport.update({
-  id: '/packing',
-  path: '/packing',
-  getParentRoute: () => AppRouteRoute,
-} as any)
 const AppPlacesRoute = AppPlacesRouteImport.update({
   id: '/places',
   path: '/places',
-  getParentRoute: () => AppRouteRoute,
-} as any)
-const AppShoppingRoute = AppShoppingRouteImport.update({
-  id: '/shopping',
-  path: '/shopping',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppTasksRoute = AppTasksRouteImport.update({
@@ -69,9 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/app/packing': typeof AppPackingRoute
   '/app/places': typeof AppPlacesRoute
-  '/app/shopping': typeof AppShoppingRoute
   '/app/tasks': typeof AppTasksRoute
   '/app/waiting': typeof AppWaitingRoute
   '/app/': typeof AppIndexRoute
@@ -79,9 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/app/packing': typeof AppPackingRoute
   '/app/places': typeof AppPlacesRoute
-  '/app/shopping': typeof AppShoppingRoute
   '/app/tasks': typeof AppTasksRoute
   '/app/waiting': typeof AppWaitingRoute
   '/app': typeof AppIndexRoute
@@ -91,9 +75,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/app/packing': typeof AppPackingRoute
   '/app/places': typeof AppPlacesRoute
-  '/app/shopping': typeof AppShoppingRoute
   '/app/tasks': typeof AppTasksRoute
   '/app/waiting': typeof AppWaitingRoute
   '/app/': typeof AppIndexRoute
@@ -104,30 +86,18 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
-    | '/app/packing'
     | '/app/places'
-    | '/app/shopping'
     | '/app/tasks'
     | '/app/waiting'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/auth'
-    | '/app/packing'
-    | '/app/places'
-    | '/app/shopping'
-    | '/app/tasks'
-    | '/app/waiting'
-    | '/app'
+  to: '/' | '/auth' | '/app/places' | '/app/tasks' | '/app/waiting' | '/app'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/auth'
-    | '/app/packing'
     | '/app/places'
-    | '/app/shopping'
     | '/app/tasks'
     | '/app/waiting'
     | '/app/'
@@ -169,25 +139,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/app/packing': {
-      id: '/app/packing'
-      path: '/packing'
-      fullPath: '/app/packing'
-      preLoaderRoute: typeof AppPackingRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
     '/app/places': {
       id: '/app/places'
       path: '/places'
       fullPath: '/app/places'
       preLoaderRoute: typeof AppPlacesRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/app/shopping': {
-      id: '/app/shopping'
-      path: '/shopping'
-      fullPath: '/app/shopping'
-      preLoaderRoute: typeof AppShoppingRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/tasks': {
@@ -208,18 +164,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteRouteChildren {
-  AppPackingRoute: typeof AppPackingRoute
   AppPlacesRoute: typeof AppPlacesRoute
-  AppShoppingRoute: typeof AppShoppingRoute
   AppTasksRoute: typeof AppTasksRoute
   AppWaitingRoute: typeof AppWaitingRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
-  AppPackingRoute: AppPackingRoute,
   AppPlacesRoute: AppPlacesRoute,
-  AppShoppingRoute: AppShoppingRoute,
   AppTasksRoute: AppTasksRoute,
   AppWaitingRoute: AppWaitingRoute,
   AppIndexRoute: AppIndexRoute,
