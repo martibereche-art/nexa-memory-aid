@@ -13,9 +13,19 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppMoreRouteImport } from './routes/app/more'
+import { Route as AppNotificationsRouteImport } from './routes/app/notifications'
 import { Route as AppPlacesRouteImport } from './routes/app/places'
+import { Route as AppProfileRouteImport } from './routes/app/profile'
+import { Route as AppSearchRouteImport } from './routes/app/search'
+import { Route as AppSettingsRouteImport } from './routes/app/settings'
 import { Route as AppTasksRouteImport } from './routes/app/tasks'
+import { Route as AppTomorrowRouteImport } from './routes/app/tomorrow'
 import { Route as AppWaitingRouteImport } from './routes/app/waiting'
+import { Route as AppPackingIndexRouteImport } from './routes/app/packing/index'
+import { Route as AppPackingListIdRouteImport } from './routes/app/packing/$listId'
+import { Route as AppShoppingIndexRouteImport } from './routes/app/shopping/index'
+import { Route as AppShoppingListIdRouteImport } from './routes/app/shopping/$listId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -37,9 +47,34 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppMoreRoute = AppMoreRouteImport.update({
+  id: '/more',
+  path: '/more',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppPlacesRoute = AppPlacesRouteImport.update({
   id: '/places',
   path: '/places',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppSearchRoute = AppSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppTasksRoute = AppTasksRouteImport.update({
@@ -47,9 +82,34 @@ const AppTasksRoute = AppTasksRouteImport.update({
   path: '/tasks',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppTomorrowRoute = AppTomorrowRouteImport.update({
+  id: '/tomorrow',
+  path: '/tomorrow',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppWaitingRoute = AppWaitingRouteImport.update({
   id: '/waiting',
   path: '/waiting',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppPackingIndexRoute = AppPackingIndexRouteImport.update({
+  id: '/packing/',
+  path: '/packing/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppPackingListIdRoute = AppPackingListIdRouteImport.update({
+  id: '/packing/$listId',
+  path: '/packing/$listId',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppShoppingIndexRoute = AppShoppingIndexRouteImport.update({
+  id: '/shopping/',
+  path: '/shopping/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppShoppingListIdRoute = AppShoppingListIdRouteImport.update({
+  id: '/shopping/$listId',
+  path: '/shopping/$listId',
   getParentRoute: () => AppRouteRoute,
 } as any)
 
@@ -57,28 +117,58 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/more': typeof AppMoreRoute
+  '/app/notifications': typeof AppNotificationsRoute
   '/app/places': typeof AppPlacesRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/search': typeof AppSearchRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/tasks': typeof AppTasksRoute
+  '/app/tomorrow': typeof AppTomorrowRoute
   '/app/waiting': typeof AppWaitingRoute
   '/app/': typeof AppIndexRoute
+  '/app/packing/$listId': typeof AppPackingListIdRoute
+  '/app/shopping/$listId': typeof AppShoppingListIdRoute
+  '/app/packing/': typeof AppPackingIndexRoute
+  '/app/shopping/': typeof AppShoppingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/app/more': typeof AppMoreRoute
+  '/app/notifications': typeof AppNotificationsRoute
   '/app/places': typeof AppPlacesRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/search': typeof AppSearchRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/tasks': typeof AppTasksRoute
+  '/app/tomorrow': typeof AppTomorrowRoute
   '/app/waiting': typeof AppWaitingRoute
   '/app': typeof AppIndexRoute
+  '/app/packing/$listId': typeof AppPackingListIdRoute
+  '/app/shopping/$listId': typeof AppShoppingListIdRoute
+  '/app/packing': typeof AppPackingIndexRoute
+  '/app/shopping': typeof AppShoppingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/more': typeof AppMoreRoute
+  '/app/notifications': typeof AppNotificationsRoute
   '/app/places': typeof AppPlacesRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/search': typeof AppSearchRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/tasks': typeof AppTasksRoute
+  '/app/tomorrow': typeof AppTomorrowRoute
   '/app/waiting': typeof AppWaitingRoute
   '/app/': typeof AppIndexRoute
+  '/app/packing/$listId': typeof AppPackingListIdRoute
+  '/app/shopping/$listId': typeof AppShoppingListIdRoute
+  '/app/packing/': typeof AppPackingIndexRoute
+  '/app/shopping/': typeof AppShoppingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -86,21 +176,57 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/more'
+    | '/app/notifications'
     | '/app/places'
+    | '/app/profile'
+    | '/app/search'
+    | '/app/settings'
     | '/app/tasks'
+    | '/app/tomorrow'
     | '/app/waiting'
     | '/app/'
+    | '/app/packing/$listId'
+    | '/app/shopping/$listId'
+    | '/app/packing/'
+    | '/app/shopping/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/app/places' | '/app/tasks' | '/app/waiting' | '/app'
+  to:
+    | '/'
+    | '/auth'
+    | '/app/more'
+    | '/app/notifications'
+    | '/app/places'
+    | '/app/profile'
+    | '/app/search'
+    | '/app/settings'
+    | '/app/tasks'
+    | '/app/tomorrow'
+    | '/app/waiting'
+    | '/app'
+    | '/app/packing/$listId'
+    | '/app/shopping/$listId'
+    | '/app/packing'
+    | '/app/shopping'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/auth'
+    | '/app/more'
+    | '/app/notifications'
     | '/app/places'
+    | '/app/profile'
+    | '/app/search'
+    | '/app/settings'
     | '/app/tasks'
+    | '/app/tomorrow'
     | '/app/waiting'
     | '/app/'
+    | '/app/packing/$listId'
+    | '/app/shopping/$listId'
+    | '/app/packing/'
+    | '/app/shopping/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -139,11 +265,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/more': {
+      id: '/app/more'
+      path: '/more'
+      fullPath: '/app/more'
+      preLoaderRoute: typeof AppMoreRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/notifications': {
+      id: '/app/notifications'
+      path: '/notifications'
+      fullPath: '/app/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/places': {
       id: '/app/places'
       path: '/places'
       fullPath: '/app/places'
       preLoaderRoute: typeof AppPlacesRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/search': {
+      id: '/app/search'
+      path: '/search'
+      fullPath: '/app/search'
+      preLoaderRoute: typeof AppSearchRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/tasks': {
@@ -153,6 +314,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppTasksRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/tomorrow': {
+      id: '/app/tomorrow'
+      path: '/tomorrow'
+      fullPath: '/app/tomorrow'
+      preLoaderRoute: typeof AppTomorrowRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/waiting': {
       id: '/app/waiting'
       path: '/waiting'
@@ -160,21 +328,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppWaitingRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/packing/': {
+      id: '/app/packing/'
+      path: '/packing'
+      fullPath: '/app/packing/'
+      preLoaderRoute: typeof AppPackingIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/packing/$listId': {
+      id: '/app/packing/$listId'
+      path: '/packing/$listId'
+      fullPath: '/app/packing/$listId'
+      preLoaderRoute: typeof AppPackingListIdRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/shopping/': {
+      id: '/app/shopping/'
+      path: '/shopping'
+      fullPath: '/app/shopping/'
+      preLoaderRoute: typeof AppShoppingIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/shopping/$listId': {
+      id: '/app/shopping/$listId'
+      path: '/shopping/$listId'
+      fullPath: '/app/shopping/$listId'
+      preLoaderRoute: typeof AppShoppingListIdRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
   }
 }
 
 interface AppRouteRouteChildren {
+  AppMoreRoute: typeof AppMoreRoute
+  AppNotificationsRoute: typeof AppNotificationsRoute
   AppPlacesRoute: typeof AppPlacesRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppSearchRoute: typeof AppSearchRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppTasksRoute: typeof AppTasksRoute
+  AppTomorrowRoute: typeof AppTomorrowRoute
   AppWaitingRoute: typeof AppWaitingRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppPackingListIdRoute: typeof AppPackingListIdRoute
+  AppShoppingListIdRoute: typeof AppShoppingListIdRoute
+  AppPackingIndexRoute: typeof AppPackingIndexRoute
+  AppShoppingIndexRoute: typeof AppShoppingIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppMoreRoute: AppMoreRoute,
+  AppNotificationsRoute: AppNotificationsRoute,
   AppPlacesRoute: AppPlacesRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppSearchRoute: AppSearchRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppTasksRoute: AppTasksRoute,
+  AppTomorrowRoute: AppTomorrowRoute,
   AppWaitingRoute: AppWaitingRoute,
   AppIndexRoute: AppIndexRoute,
+  AppPackingListIdRoute: AppPackingListIdRoute,
+  AppShoppingListIdRoute: AppShoppingListIdRoute,
+  AppPackingIndexRoute: AppPackingIndexRoute,
+  AppShoppingIndexRoute: AppShoppingIndexRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
