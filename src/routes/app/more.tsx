@@ -1,3 +1,5 @@
+import {usePrimeWords} from "@/lib/prime/words";
+import {Hourglass,Crown} from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bell, Info, Search, Settings, Sunrise, User, MoreHorizontal } from "lucide-react";
 import { DirChevron, FeatureIcon, PageHeader } from "@/components/app/primitives";
@@ -8,7 +10,10 @@ export const Route = createFileRoute("/app/more")({ component: MorePage });
 
 function MorePage() {
   const { t } = useI18n();
+  const w=usePrimeWords();
   const links = [
+    {to:"/app/prime",icon:Crown,color:"amber",title:w.prime,sub:""},
+    {to:"/app/coming-soon",icon:Hourglass,color:"cyan",title:w.soon,sub:""},
     { to: "/app/tomorrow", icon: Sunrise, color: "cyan", title: t("more.tomorrow"), sub: t("more.tomorrowSub") },
     { to: "/app/search", icon: Search, color: "indigo", title: t("more.search"), sub: t("more.searchSub") },
     { to: "/app/notifications", icon: Bell, color: "amber", title: t("more.notifications"), sub: t("more.notificationsSub") },

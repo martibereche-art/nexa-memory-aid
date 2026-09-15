@@ -1,3 +1,4 @@
+import {PrimePreferences} from "@/components/app/PrimePreferences";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Settings, LogOut, Download } from "lucide-react";
 import { useState } from "react";
@@ -73,6 +74,7 @@ function SettingsPage() {
         <SwitchRow label={t("settings.inApp")} checked={prefs.inApp} onCheckedChange={(v) => setPref("inApp", v)} />
         <SwitchRow label={t("settings.browser")} hint={browserPermission() === "unsupported" ? t("notifications.browserUnsupported") : browserPermission() === "denied" ? t("notifications.browserDenied") : undefined} checked={prefs.browser && browserPermission() === "granted"} onCheckedChange={(v) => setPref("browser", v)} disabled={browserPermission() === "unsupported"} />
       </section>
+      <PrimePreferences/>
       <section className="space-y-2">
         <SectionTitle>{t("settings.data")}</SectionTitle>
         <Button variant="outline" className="w-full justify-start" onClick={exportData}><Download className="h-4 w-4" />{t("settings.export")}</Button>

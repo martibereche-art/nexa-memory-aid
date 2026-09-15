@@ -1,3 +1,5 @@
+import {lovable} from "@/integrations/lovable";
+import {usePrimeWords} from "@/lib/prime/words";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { z } from "zod";
@@ -28,6 +30,9 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
+  const w=usePrimeWords();
+  const [googleBusy,setGoogleBusy]=useState(false);
+  const google=async()=>{setGoogleBusy(true);try{const result=await lovable.auth.signInWithOAuth("google",{redirect_uri:window.location.origin});if(result.error)toast.error(w.error);}catch{toast.error(w.error);}finally{setGoogleBusy(false);}};
   const { mode } = Route.useSearch();
   const navigate = useNavigate();
   const { t, lang } = useI18n();
@@ -189,6 +194,7 @@ function AuthPage() {
         </form>
       )}
 
+      <Button variant="outline" className="mt-6" disabled={busy||googleBusy} onClick={google}>{googleBusy?t("common.loading"):w.google}</Button>
       <div className="mt-6 flex items-center gap-3 text-xs text-muted-foreground">
         <span className="h-px flex-1 bg-border" />
         {t("common.or")}
