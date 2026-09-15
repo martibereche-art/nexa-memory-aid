@@ -145,7 +145,7 @@ export function useReminderEngine() {
       .insertMany("notifications", fresh)
       .then((rows) => {
         qc.invalidateQueries({ queryKey: rowsKey(scope, "notifications") });
-        if(rows.length && profile?.notify_sound) void prime.refetch().then(result=>{if(result.data?.active)return playPrimeSound(profile.notify_sound_id,profile.notify_volume);}).catch(()=>undefined);
+        if(rows.length && profile?.notify_sound) void prime.refetch().then(result=>{if(result.data?.active)void playPrimeSound(profile.notify_sound_id,profile.notify_volume).catch(()=>undefined);}).catch(()=>undefined);
         if (browser) for (const r of rows) showBrowserNotification(r.title, r.body);
       })
       .catch(() => {
