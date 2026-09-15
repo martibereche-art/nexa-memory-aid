@@ -174,31 +174,43 @@ export type Database = {
       }
       profiles: {
         Row: {
+          background: string
           created_at: string
           display_name: string
           language: string
           notify_browser: boolean
           notify_in_app: boolean
+          notify_sound: boolean
+          notify_sound_id: string
+          notify_volume: number
           theme: string
           updated_at: string
           user_id: string
         }
         Insert: {
+          background?: string
           created_at?: string
           display_name?: string
           language?: string
           notify_browser?: boolean
           notify_in_app?: boolean
+          notify_sound?: boolean
+          notify_sound_id?: string
+          notify_volume?: number
           theme?: string
           updated_at?: string
           user_id: string
         }
         Update: {
+          background?: string
           created_at?: string
           display_name?: string
           language?: string
           notify_browser?: boolean
           notify_in_app?: boolean
+          notify_sound?: boolean
+          notify_sound_id?: string
+          notify_volume?: number
           theme?: string
           updated_at?: string
           user_id?: string
@@ -328,6 +340,48 @@ export type Database = {
           is_archived?: boolean
           notes?: string
           title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string | null
+          plan: string
+          provider: string | null
+          provider_customer_id: string | null
+          provider_subscription_id: string | null
+          started_at: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          plan?: string
+          provider?: string | null
+          provider_customer_id?: string | null
+          provider_subscription_id?: string | null
+          started_at?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          plan?: string
+          provider?: string | null
+          provider_customer_id?: string | null
+          provider_subscription_id?: string | null
+          started_at?: string | null
+          status?: string
           updated_at?: string
           user_id?: string
         }
