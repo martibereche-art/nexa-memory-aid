@@ -1,0 +1,6 @@
+import {createFileRoute} from '@tanstack/react-router';
+import {Hourglass,CalendarDays,HeartPulse} from 'lucide-react';
+import {PageHeader,FeatureIcon} from '@/components/app/primitives';
+import {usePrimeWords} from '@/lib/prime/words';
+export const Route=createFileRoute('/app/coming-soon')({head:()=>({meta:[{title:'Coming Soon — NEXA'},{name:'description',content:'Upcoming NEXA appointments and health modules.'},{property:'og:title',content:'Coming Soon — NEXA'},{property:'og:description',content:'A preview of future NEXA modules.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'}]}),component:ComingSoon});
+function ComingSoon(){const w=usePrimeWords();return <div className="space-y-6"><PageHeader title={w.soon} icon={Hourglass} color="amber"/><div className="grid gap-4 sm:grid-cols-2">{[{name:w.appointments,body:w.appointmentsBody,icon:CalendarDays},{name:w.health,body:w.healthBody,icon:HeartPulse}].map(x=><article key={x.name} className="surface space-y-4 p-5"><FeatureIcon icon={x.icon} color="cyan"/><h2 className="text-lg font-semibold">{x.name}</h2><p className="text-sm text-muted-foreground">{x.body}</p><span className="text-xs text-feature-amber">{w.soon}</span></article>)}</div><p className="text-sm text-muted-foreground">{w.early}</p></div>;}

@@ -1,0 +1,15 @@
+import {useState} from 'react';
+import {Lock,Volume2} from 'lucide-react';
+import {toast} from 'sonner';
+import {useQueryClient} from '@tanstack/react-query';
+import {supabase} from '@/integrations/supabase/client';
+import {useAuth} from '@/lib/auth/AuthProvider';
+import {usePrime} from '@/lib/prime/usePrime';
+import {usePrimeWords} from '@/lib/prime/words';
+import {playPrimeSound} from '@/lib/prime/audio';
+import {Button} from '@/components/ui/button';
+import {SwitchRow} from './fields';
+import {PrimeBadge} from './Prime';
+export function PrimePreferences(){const w=usePrimeWords();const {user,profile,refreshProfile}=useAuth();const prime=usePrime();const qc=useQueryClient();const [busy,setBusy]=useState(false);const active=prime.data?.active===true;async function save(patch:{background?:string;notify_sound?:boolean;notify_sound_id?:string;notify_volume?:number}){if(!user)return;setBusy(true);try{const {error}=await supabase.from('profiles').update(patch).eq('user_id',user.id);if(error)throw error;await refreshProfile();await qc.invalidateQueries({queryKey:['prime']});}catch{toast.error(w.error);}finally{setBusy(false);}}
+return <section className="space-y-4"><PrimeBadge/><h2 className="font-semibold">{w.backgrounds}</h2><div className="grid grid-cols-2 gap-3 sm:grid-cols-3">{(['nexa','midnight','purple','emerald','crimson','cosmic'] as const).map(id=><Button key={id} variant="outline" disabled={busy||(!active&&id!=='nexa')} aria-pressed={(active?profile?.background:'nexa')===id} className="h-auto min-w-0 flex-col whitespace-normal p-2 text-center" onClick={()=>save({background:id})}><span className={`prime-preview prime-bg-${id}`} aria-hidden="true"/><span className="flex items-center gap-1 text-xs">{id!=='nexa'&&!active&&<Lock className="h-3 w-3 shrink-0"/>}{w[id]}</span></Button>)}</div><h2 className="font-semibold">{w.sounds}</h2><SwitchRow label={w.sounds} hint={!active?w.locked:undefined} checked={active&&Boolean(profile?.notify_sound)} disabled={!active||busy} onCheckedChange={v=>void save({notify_sound:v})}/><label className="block text-sm">{w.sounds}<select className="mt-2 w-full rounded-lg border border-input bg-card p-3" disabled={!active||busy} value={profile?.notify_sound_id??'nexa'} onChange={e=>void save({notify_sound_id:e.target.value})}>{(['nexa','chime','pulse'] as const).map(id=><option key={id} value={id}>{w[id]}</option>)}</select></label><label className="block text-sm">{w.volume}<input aria-label={w.volume} className="mt-2 w-full" type="range" min="0" max="100" disabled={!active||busy} defaultValue={profile?.notify_volume??70} key={profile?.notify_volume} onPointerUp={e=>void save({notify_volume:Number(e.currentTarget.value)})} onKeyUp={e=>void save({notify_volume:Number(e.currentTarget.value)})}/></label><Button variant="outline" disabled={!active} onClick={async()=>{try{const result=await prime.refetch();if(result.data?.active)await playPrimeSound(profile?.notify_sound_id??'nexa',profile?.notify_volume??70);}catch{toast.error(w.error);}}}><Volume2 className="h-4 w-4"/>{w.test}</Button><p className="text-xs text-muted-foreground">{w.limited}</p></section>;
+}
