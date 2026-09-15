@@ -1,3 +1,4 @@
+import {PrimeBadge} from "@/components/app/Prime";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { User } from "lucide-react";
 import { useState, type FormEvent } from "react";
@@ -47,6 +48,7 @@ function ProfilePage() {
           <Button type="submit" variant="hero" disabled={busy || !name.trim()}>{busy ? t("common.saving") : t("common.save")}</Button>
         </form>
       )}
+      <PrimeBadge/>
       <section>
         <SectionTitle>{t("profile.stats")}</SectionTitle>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">{stats.map((s) => <div key={s.label} className="surface p-4"><p className="text-2xl font-extrabold tabular">{s.value}</p><p className="text-xs text-muted-foreground">{s.label}</p></div>)}</div>

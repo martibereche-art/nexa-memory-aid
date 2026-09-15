@@ -1,0 +1,8 @@
+CREATE OR REPLACE FUNCTION public.validate_personalization() RETURNS trigger LANGUAGE plpgsql SET search_path = public AS $$ BEGIN
+IF NEW.background NOT IN ('nexa','midnight','purple','emerald','crimson','cosmic') OR NEW.notify_sound_id NOT IN ('nexa','chime','pulse') OR NEW.notify_volume NOT BETWEEN 0 AND 100 THEN RAISE EXCEPTION 'Invalid preferences'; END IF;
+IF (TG_OP = 'INSERT' AND (NEW.background <> 'nexa' OR NEW.notify_sound)) OR (TG_OP = 'UPDATE' AND ((NEW.background IS DISTINCT FROM OLD.background AND NEW.background <> 'nexa') OR (NEW.notify_sound AND (NEW.notify_sound IS DISTINCT FROM OLD.notify_sound OR NEW.notify_sound_id IS DISTINCT FROM OLD.notify_sound_id OR NEW.notify_volume IS DISTINCT FROM OLD.notify_volume)))) THEN
+IF NOT EXISTS (SELECT 1 FROM public.subscriptions WHERE user_id = NEW.user_id AND plan IN ('weekly','monthly','yearly') AND status IN ('active','cancelled','canceled') AND started_at <= now() AND current_period_end > now()) THEN RAISE EXCEPTION 'Prime required'; END IF; END IF; RETURN NEW; END $$;
+REVOKE ALL ON FUNCTION public.validate_personalization() FROM PUBLIC, anon, authenticated;
+CREATE TRIGGER validate_personalization BEFORE INSERT OR UPDATE ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.validate_personalization();
+DROP POLICY profiles_update_own ON public.profiles;
+CREATE POLICY profiles_update_own ON public.profiles FOR UPDATE TO authenticated USING (auth.uid()=user_id) WITH CHECK(auth.uid()=user_id);

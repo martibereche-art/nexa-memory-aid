@@ -1,3 +1,5 @@
+import {usePrime} from "@/lib/prime/usePrime";
+import {playPrimeSound} from "@/lib/prime/audio";
 import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth/AuthProvider";
@@ -28,6 +30,7 @@ export function writeNotifyPrefs(p: { inApp?: boolean; browser?: boolean }) {
  * created once, both locally and in the cloud (partial unique index).
  */
 export function useReminderEngine() {
+  const prime=usePrime();
   const { store, scope } = useData();
   const { profile } = useAuth();
   const { t, formatRelativeDay, formatDate } = useI18n();
@@ -88,7 +91,7 @@ export function useReminderEngine() {
 
     for (const w of waiting.data) {
       if (w.status !== "waiting" && w.status !== "follow_up") continue;
-      if (w.next_reminder && w.next_reminder <= today) {
+      if (w.next_reminder && w.next_reminder <= nowISO) {
         candidates.push({
           kind: "waiting",
           title: t("notifications.kinds.waiting"),
@@ -142,6 +145,7 @@ export function useReminderEngine() {
       .insertMany("notifications", fresh)
       .then((rows) => {
         qc.invalidateQueries({ queryKey: rowsKey(scope, "notifications") });
+        if(rows.length && profile?.notify_sound) void prime.refetch().then(result=>{if(result.data?.active)void playPrimeSound(profile.notify_sound_id,profile.notify_volume).catch(()=>undefined);}).catch(()=>undefined);
         if (browser) for (const r of rows) showBrowserNotification(r.title, r.body);
       })
       .catch(() => {

@@ -13,9 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppComingSoonRouteImport } from './routes/app/coming-soon'
 import { Route as AppMoreRouteImport } from './routes/app/more'
 import { Route as AppNotificationsRouteImport } from './routes/app/notifications'
 import { Route as AppPlacesRouteImport } from './routes/app/places'
+import { Route as AppPrimeRouteImport } from './routes/app/prime'
 import { Route as AppProfileRouteImport } from './routes/app/profile'
 import { Route as AppSearchRouteImport } from './routes/app/search'
 import { Route as AppSettingsRouteImport } from './routes/app/settings'
@@ -47,6 +49,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppComingSoonRoute = AppComingSoonRouteImport.update({
+  id: '/coming-soon',
+  path: '/coming-soon',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppMoreRoute = AppMoreRouteImport.update({
   id: '/more',
   path: '/more',
@@ -60,6 +67,11 @@ const AppNotificationsRoute = AppNotificationsRouteImport.update({
 const AppPlacesRoute = AppPlacesRouteImport.update({
   id: '/places',
   path: '/places',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppPrimeRoute = AppPrimeRouteImport.update({
+  id: '/prime',
+  path: '/prime',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppProfileRoute = AppProfileRouteImport.update({
@@ -117,9 +129,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/coming-soon': typeof AppComingSoonRoute
   '/app/more': typeof AppMoreRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/places': typeof AppPlacesRoute
+  '/app/prime': typeof AppPrimeRoute
   '/app/profile': typeof AppProfileRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
@@ -135,9 +149,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/app/coming-soon': typeof AppComingSoonRoute
   '/app/more': typeof AppMoreRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/places': typeof AppPlacesRoute
+  '/app/prime': typeof AppPrimeRoute
   '/app/profile': typeof AppProfileRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
@@ -155,9 +171,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/coming-soon': typeof AppComingSoonRoute
   '/app/more': typeof AppMoreRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/places': typeof AppPlacesRoute
+  '/app/prime': typeof AppPrimeRoute
   '/app/profile': typeof AppProfileRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
@@ -176,9 +194,11 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/coming-soon'
     | '/app/more'
     | '/app/notifications'
     | '/app/places'
+    | '/app/prime'
     | '/app/profile'
     | '/app/search'
     | '/app/settings'
@@ -194,9 +214,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/app/coming-soon'
     | '/app/more'
     | '/app/notifications'
     | '/app/places'
+    | '/app/prime'
     | '/app/profile'
     | '/app/search'
     | '/app/settings'
@@ -213,9 +235,11 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/coming-soon'
     | '/app/more'
     | '/app/notifications'
     | '/app/places'
+    | '/app/prime'
     | '/app/profile'
     | '/app/search'
     | '/app/settings'
@@ -265,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/coming-soon': {
+      id: '/app/coming-soon'
+      path: '/coming-soon'
+      fullPath: '/app/coming-soon'
+      preLoaderRoute: typeof AppComingSoonRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/more': {
       id: '/app/more'
       path: '/more'
@@ -284,6 +315,13 @@ declare module '@tanstack/react-router' {
       path: '/places'
       fullPath: '/app/places'
       preLoaderRoute: typeof AppPlacesRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/prime': {
+      id: '/app/prime'
+      path: '/prime'
+      fullPath: '/app/prime'
+      preLoaderRoute: typeof AppPrimeRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/app/profile': {
@@ -360,9 +398,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteRouteChildren {
+  AppComingSoonRoute: typeof AppComingSoonRoute
   AppMoreRoute: typeof AppMoreRoute
   AppNotificationsRoute: typeof AppNotificationsRoute
   AppPlacesRoute: typeof AppPlacesRoute
+  AppPrimeRoute: typeof AppPrimeRoute
   AppProfileRoute: typeof AppProfileRoute
   AppSearchRoute: typeof AppSearchRoute
   AppSettingsRoute: typeof AppSettingsRoute
@@ -377,9 +417,11 @@ interface AppRouteRouteChildren {
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppComingSoonRoute: AppComingSoonRoute,
   AppMoreRoute: AppMoreRoute,
   AppNotificationsRoute: AppNotificationsRoute,
   AppPlacesRoute: AppPlacesRoute,
+  AppPrimeRoute: AppPrimeRoute,
   AppProfileRoute: AppProfileRoute,
   AppSearchRoute: AppSearchRoute,
   AppSettingsRoute: AppSettingsRoute,

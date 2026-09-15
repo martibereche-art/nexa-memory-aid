@@ -1,3 +1,5 @@
+import {PrimeBadge} from "./Prime";
+import {useBackground} from "@/lib/theme/useBackground";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Bell, Home, MoreHorizontal, Plus, Search, Settings, Sunrise, User, type LucideIcon } from "lucide-react";
 import { useState, type ReactNode } from "react";
@@ -41,6 +43,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const unread = notifications.data?.filter((n) => !n.is_read).length ?? 0;
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   useReminderEngine();
+  useBackground();
 
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
@@ -95,6 +98,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Main */}
       <div className="flex min-h-dvh flex-col">
         <main className="mx-auto w-full max-w-3xl flex-1 px-4 pt-4 safe-bottom sm:px-6 lg:max-w-5xl lg:px-10 lg:pb-10 lg:pt-8">
+          <div className="mb-4 flex justify-end"><PrimeBadge/></div>
           {children}
         </main>
       </div>
